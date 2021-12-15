@@ -8,6 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from data import ModelNet40
+from model.lightnet import lightnet
 from model.pct_cls import *
 import numpy as np
 from torch.utils.data import DataLoader
@@ -36,7 +37,7 @@ def train(args, io):
 
     device = torch.device("cuda" if args.cuda else "cpu")
 
-    model = Pct(args).to(device)
+    model = lightnet(args).to(device)
 
     # print model detail
     num_params = sum(param.numel() for param in model.parameters())
@@ -144,7 +145,7 @@ def test(args, io):
 
     device = torch.device("cuda" if args.cuda else "cpu")
 
-    model = Pct(args).to(device)
+    model = lightnet(args).to(device)
     model = nn.DataParallel(model) 
     
     model.load_state_dict(torch.load(args.model_path))

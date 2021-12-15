@@ -11,7 +11,7 @@ from model.pct_module import *
 class Pct(nn.Module):
     """Pct网络
 
-    网络结构（从上到下，从左到右）：
+    网络结构（从上到下，从左到右）:
         Input Embedding module: Neighborhood Embedding i.e. LBR-->SG
         Attention module: four stacked offset-attention layer
         Stack to 1024 channel

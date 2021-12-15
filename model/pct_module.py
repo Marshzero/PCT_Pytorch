@@ -246,8 +246,8 @@ class SA_Layer(nn.Module):
         energy = torch.bmm(x_q, x_k) # bmm计算两个诸如(b,m,n)和(b,n,l)，得到(b,m,l)
 
         # Scale
-        _, n, _ = energy.size()
-        attention = energy / (n ** 0.5)
+        _, d, _ = x_k.size()
+        attention = energy / (d ** 0.5)
         # Softmax
         attention = self.softmax(energy)
 

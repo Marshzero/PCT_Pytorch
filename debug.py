@@ -1,6 +1,7 @@
 import torch
 import argparse
 import numpy as np
+from model.lightnet import lightnet
 from model.pct_cls import Pct
 from model.pct_seg import Point_Transformer_partseg
 # from model.pct_cls import *
@@ -41,8 +42,10 @@ if __name__ == '__main__':
 
     device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
     input_points = torch.randn((16, 3, 512), device=device)  # B, D, N
-    network = Point_Transformer_partseg().to(device)
+    network = lightnet(args).to(device)
+    out_logits = network(input_points)
 
-    label_one_hot = torch.randn((16, 16, 1), device=device)
-    out_logits = network(input_points, label_one_hot)
+    # seg
+    # label_one_hot = torch.randn((16, 16, 1), device=device)
+    # out_logits = network(input_points, label_one_hot)
     print (out_logits.shape)
